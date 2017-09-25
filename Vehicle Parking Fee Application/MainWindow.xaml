@@ -1,0 +1,41 @@
+﻿<Window x:Class="Vehicle_Parking_Fee_Application.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Vehicle_Parking_Fee_Application"
+        mc:Ignorable="d"
+        Title="CMR - CENTRAL PARKING APP" Height="600" Width="700" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <DockPanel LastChildFill="True">
+        <Border BorderBrush="DarkBlue" DockPanel.Dock="Bottom" BorderThickness="1">
+            <StackPanel Background="AliceBlue" Orientation="Vertical">
+                <Label BorderBrush="AliceBlue">Status : Connected</Label>
+            </StackPanel>
+        </Border>
+        <Border BorderBrush="DarkBlue" DockPanel.Dock="Left" BorderThickness="1">
+            <StackPanel Background="AliceBlue" MinWidth="160">
+                <Label FontSize="24" Height="50" HorizontalContentAlignment="Center" Foreground="#FF14B0BF" FontWeight="Bold">Options</Label>
+                <Button Name="VehicleCheckIn" Content="Vehicle Check In" Height="50" FontWeight="Bold" Foreground="#FF2D9E9E" Background="#FFF5D9C1" Click="VehicleCheckIn_Click"></Button>
+                <Button Name="VehicleCheckOut" Content="Vehicle Check In" Height="50" FontWeight="Bold" Foreground="#FF29A2A2" Background="#FFF5D9C1"></Button>
+                <Button Name="GetParkingHistory" Content="View Parking History" Height="50" FontWeight="Bold" Foreground="#FF239393" Background="#FFF5D9C1"></Button>
+            </StackPanel>
+        </Border>
+        <Border BorderBrush="DarkBlue" BorderThickness="1" DockPanel.Dock="Top">
+            <StackPanel Background="AliceBlue" >
+                <Label BorderBrush="Black" Margin="5" FontSize="24" Width="429" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="#FF25B1C7">CMR - CENTRAL PARKING APP
+                </Label>
+            </StackPanel>
+        </Border>
+        <Grid RenderTransformOrigin="0.499,0.581">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Frame Background="AliceBlue" Grid.Row="0" Name="MainFrame" NavigationUIVisibility="Hidden" Grid.RowSpan="2">
+                
+            </Frame>
+
+        </Grid>
+
+    </DockPanel>
+</Window>
