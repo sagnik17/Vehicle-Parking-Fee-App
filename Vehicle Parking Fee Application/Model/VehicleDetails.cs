@@ -14,6 +14,8 @@ namespace Vehicle_Parking_Fee_Application.Model
         public int VehicleDetailsID { get; set; }
         public String VehicleNumber { get; set; }
         public int VehicleTypeID { get; set; }
+        [ForeignKey("VehicleTypeID")]
+        public virtual VehicleType VehicleType { get; set; }
         public string DriverName { get; set; }
 
     }

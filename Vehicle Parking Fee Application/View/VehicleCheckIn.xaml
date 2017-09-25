@@ -5,11 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Vehicle_Parking_Fee_Application.View"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DataContext="{d:DesignInstance viewModels:ParkingViewModel}"
+      d:DesignHeight="300" d:DesignWidth="500"
+       xmlns:viewModels="clr-namespace:Vehicle_Parking_Fee_Application.ViewModel"
       Title="VehicleCheckIn">
 
     <DockPanel>
-        <StackPanel Width="300" HorizontalAlignment="Center" Margin="0,40,0,33" >
+        <StackPanel Width="400" HorizontalAlignment="Center" Margin="0,40,0,33" >
 
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
@@ -21,15 +23,15 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Label Foreground="#FF111010" Margin="-1,0,205,0" Grid.ColumnSpan="2" FontWeight="Bold">Vehicle Type:</Label>
-                <ComboBox x:Name="vehicletype" 
-                          HorizontalAlignment="Left" VerticalAlignment="Top" Width="185" Grid.Column="1" Margin="2,-1,0,0"/>
-                <Label Foreground="#FF111010" Grid.Row="1" Grid.ColumnSpan="2" Margin="1,0,175,0" FontWeight="Bold">Vehicle Number :</Label>
-                <TextBox Name="veh" BorderBrush="AliceBlue" BorderThickness="1" Grid.Row="1" Grid.Column="1" Margin="0,4,0,6" />
+                <Label Foreground="#FF111010" Margin="-1,0,260,0" Grid.ColumnSpan="2" FontWeight="Bold">Vehicle Type :</Label>
+                <ComboBox x:Name="vehicletype" ItemsSource="{Binding VType}" SelectedValuePath="VehicleTypeID" SelectedItem="{Binding SVType}" DisplayMemberPath="VehicleTypeName"
+                          HorizontalAlignment="Left" VerticalAlignment="Top" Width="185" Grid.Column="1" Margin="24,-1,0,0"/>
+                <Label Foreground="#FF111010" Grid.Row="1" Grid.ColumnSpan="2" Margin="1,0,260,0" FontWeight="Bold" Height="32" VerticalAlignment="Bottom">Vehicle Number :</Label>
+                <TextBox Name="veh" BorderBrush="AliceBlue" BorderThickness="1" Grid.Row="1" Grid.Column="1" Margin="24,4,78,10" />
 
-                <Label Foreground="#FF111010" Grid.Row="2" Margin="-3,0,3,0" FontWeight="Bold">Driver's Name:</Label>
-                <TextBox Name="Descriptiontxt" BorderBrush="AliceBlue" BorderThickness="1" Grid.Row="2" Grid.Column="1" AcceptsReturn="True" Margin="0,5,0,0" />
-                <Button Content="Add New" Name="AddItem" Margin="0,88,109,-90" Grid.Row="2" Grid.Column="1"/>
+                <Label Foreground="#FF111010" Grid.Row="2" Margin="-1,0,1,0" FontWeight="Bold">Driver's Name :</Label>
+                <TextBox Name="Descriptiontxt" BorderBrush="AliceBlue" BorderThickness="1" Grid.Row="2" Grid.Column="1" AcceptsReturn="True" Margin="24,5,78,10" />
+                <Button Content="Search Parking Space" Name="AddItem" Margin="80,68,125,-70" Grid.Row="2" Grid.ColumnSpan="2"/>
 
                 <Label x:Name="status" Content="{Binding Message,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"  Foreground="Green" Margin="-3,150,-5,-149" Grid.Row="2" HorizontalContentAlignment="Center"
                    FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2"/>

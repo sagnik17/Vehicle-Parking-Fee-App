@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Vehicle_Parking_Fee_Application.ViewModel;
 
 namespace Vehicle_Parking_Fee_Application.View
 {
@@ -23,6 +24,7 @@ namespace Vehicle_Parking_Fee_Application.View
         public VehicleCheckIn()
         {
             InitializeComponent();
+            DataContext = new ParkingViewModel();
         }
     }
 }
