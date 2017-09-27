@@ -36,5 +36,11 @@ namespace Vehicle_Parking_Fee_Application
             VehicleCheckIn v = new View.VehicleCheckIn();
             pageload1(v);
         }
+
+        private void VehicleCheckOut_Click(object sender, RoutedEventArgs e)
+        {
+            VehicleCheckOut v = new View.VehicleCheckOut();
+            pageload1(v);
+        }
     }
 }

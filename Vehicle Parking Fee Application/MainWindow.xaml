@@ -16,7 +16,7 @@
             <StackPanel Background="AliceBlue" MinWidth="160">
                 <Label FontSize="24" Height="50" HorizontalContentAlignment="Center" Foreground="#FF14B0BF" FontWeight="Bold">Options</Label>
                 <Button Name="VehicleCheckIn" Content="Vehicle Check In" Height="50" FontWeight="Bold" Foreground="#FF2D9E9E" Background="#FFF5D9C1" Click="VehicleCheckIn_Click"></Button>
-                <Button Name="VehicleCheckOut" Content="Vehicle Check In" Height="50" FontWeight="Bold" Foreground="#FF29A2A2" Background="#FFF5D9C1"></Button>
+                <Button Name="VehicleCheckOut" Content="Vehicle Check In" Height="50" FontWeight="Bold" Foreground="#FF29A2A2" Background="#FFF5D9C1" Click="VehicleCheckOut_Click"></Button>
                 <Button Name="GetParkingHistory" Content="View Parking History" Height="50" FontWeight="Bold" Foreground="#FF239393" Background="#FFF5D9C1"></Button>
             </StackPanel>
         </Border>

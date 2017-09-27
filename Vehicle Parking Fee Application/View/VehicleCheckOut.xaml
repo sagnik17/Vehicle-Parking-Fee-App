@@ -5,10 +5,39 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Vehicle_Parking_Fee_Application.View"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DataContext="{d:DesignInstance viewModels:ParkingViewModel}"
+      d:DesignHeight="300" d:DesignWidth="500"
+       xmlns:viewModels="clr-namespace:Vehicle_Parking_Fee_Application.ViewModel"
+      xmlns:Models="clr-namespace:Vehicle_Parking_Fee_Application.Model"
       Title="VehicleCheckOut">
 
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <StackPanel Width="460" HorizontalAlignment="Center" Margin="0,10" >
+
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Foreground="#FF111010" Margin="-1,0,260,0" Grid.ColumnSpan="2" FontWeight="Bold">Vehicle Number :</Label>
+                <ComboBox x:Name="vehicletype" ItemsSource="{Binding VDetails}" SelectedValuePath="VehicleDetailsID" SelectedItem="{Binding svDetails}" DisplayMemberPath="VehicleNumber"
+                          HorizontalAlignment="Left" VerticalAlignment="Top" Width="185" Grid.Column="1" Margin="24,-1,0,0"/>
+                <Label Foreground="#FF111010" Grid.Row="1" Grid.ColumnSpan="2" Margin="1,0,260,0" FontWeight="Bold" Height="32" VerticalAlignment="Bottom">Parking Slot :</Label>
+
+                <Label Foreground="#FF111010" Grid.Row="2" Margin="-1,0,1,0" FontWeight="Bold">Driver's Name :</Label>
+                <Button Content="Check Out Vehicle" Command="{Binding GetParkingSpace}" Name="AddItem" Margin="79,107,126,-109" Grid.Row="2" Grid.ColumnSpan="2"/>
+
+                <Label x:Name="status" Content="{Binding Message,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"  Foreground="Green" Margin="-18,142,10,-141" Grid.Row="2" HorizontalContentAlignment="Center"
+                   FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+            </Grid>
+
+        </StackPanel>
+
+    </DockPanel>
 </Page>

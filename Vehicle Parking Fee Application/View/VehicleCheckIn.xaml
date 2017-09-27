@@ -34,7 +34,7 @@
                 <Label Foreground="#FF111010" Grid.Row="2" Margin="-1,0,1,0" FontWeight="Bold">Driver's Name :</Label>
                 <TextBox Name="DriversName" Text="{Binding DriverName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          BorderBrush="AliceBlue" BorderThickness="1" Grid.Row="2" Grid.Column="1" AcceptsReturn="True" Margin="24,5,78,10" />
-                <Button Content="Search Parking Space" Command="{Binding GetParkingSpace}" Name="AddItem" Margin="80,68,125,-70" Grid.Row="2" Grid.ColumnSpan="2"/>
+                <Button Content="Check In Vehicle" Command="{Binding GetParkingSpace}" Name="AddItem" Margin="80,68,125,-70" Grid.Row="2" Grid.ColumnSpan="2"/>
 
                 <Label x:Name="status" Content="{Binding Message,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"  Foreground="Green" Margin="-9,124,1,-123" Grid.Row="2" HorizontalContentAlignment="Center"
                    FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2"/>

@@ -27,6 +27,11 @@ namespace Vehicle_Parking_Fee_Application.DBLayer
             return _pDBContext.VehicleType.ToList();
         }
 
+        public List<VehicleDetails> getAllVDetails()
+        {
+            return _pDBContext.VehicleDetails.ToList();
+        }
+
         public ParkingSpace FindNewParkingSpace(int floorNumber1, int floorNumber2)
         {
             ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
@@ -124,5 +129,15 @@ namespace Vehicle_Parking_Fee_Application.DBLayer
                 return null;
             }
         }
+
+        public ParkingBookingHistory VehicleCheckOut()
+        {
+            return null;
+        }
     }
+
+    
+    
+
+    
 }

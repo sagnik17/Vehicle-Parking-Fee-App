@@ -17,7 +17,10 @@ namespace Vehicle_Parking_Fee_Application.ViewModel
         private DALayer _dbLayerObj;
         private string _driverName;
         private string _vehicleNumber;
-        
+        private List<VehicleDetails> _vDetails;
+        private VehicleDetails _svDetails;
+
+
         public string Message
         {
             get
@@ -55,6 +58,19 @@ namespace Vehicle_Parking_Fee_Application.ViewModel
             }
         }
 
+        
+        public List<VehicleDetails> VDetails
+        {
+            get { return _vDetails; }
+            set { _vDetails = value; }
+        }
+
+        public VehicleDetails svDetails
+        {
+            get { return _svDetails; }
+            set { _svDetails = value; NotifyPropertyChanged(); }
+        }
+
 
         public List<VehicleType> VType
         {
@@ -70,15 +86,14 @@ namespace Vehicle_Parking_Fee_Application.ViewModel
 
         public ParkingViewModel() : this(new DALayer())
         {
-            //Message = "";
-            //GetCustomerList();
-            //getFoodOrderItems();
+            
         }
 
 
         public ParkingViewModel(DALayer _dbObj)
         {
             getVehicleTypes();
+            getVehicleDetails();
             //this._dbLayerObj = _dbLayerObj;
         }
 
@@ -87,6 +102,13 @@ namespace Vehicle_Parking_Fee_Application.ViewModel
             VType = new List<VehicleType>();
             _dbLayerObj = new DALayer();
             VType = _dbLayerObj.getAllVTypes();
+        }
+
+        public void getVehicleDetails()
+        {
+            VDetails = new List<VehicleDetails>();
+            _dbLayerObj = new DALayer();
+            VDetails = _dbLayerObj.getAllVDetails();
         }
 
         public ICommand GetParkingSpace
