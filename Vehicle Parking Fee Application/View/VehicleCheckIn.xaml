@@ -8,6 +8,7 @@
       d:DataContext="{d:DesignInstance viewModels:ParkingViewModel}"
       d:DesignHeight="300" d:DesignWidth="500"
        xmlns:viewModels="clr-namespace:Vehicle_Parking_Fee_Application.ViewModel"
+      xmlns:Models="clr-namespace:Vehicle_Parking_Fee_Application.Model"
       Title="VehicleCheckIn">
 
     <DockPanel>
@@ -27,13 +28,15 @@
                 <ComboBox x:Name="vehicletype" ItemsSource="{Binding VType}" SelectedValuePath="VehicleTypeID" SelectedItem="{Binding SVType}" DisplayMemberPath="VehicleTypeName"
                           HorizontalAlignment="Left" VerticalAlignment="Top" Width="185" Grid.Column="1" Margin="24,-1,0,0"/>
                 <Label Foreground="#FF111010" Grid.Row="1" Grid.ColumnSpan="2" Margin="1,0,260,0" FontWeight="Bold" Height="32" VerticalAlignment="Bottom">Vehicle Number :</Label>
-                <TextBox Name="veh" BorderBrush="AliceBlue" BorderThickness="1" Grid.Row="1" Grid.Column="1" Margin="24,4,78,10" />
+                <TextBox Text="{Binding VehicleNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Name="vehicleNumber" BorderBrush="AliceBlue" BorderThickness="1" Grid.Row="1" Grid.Column="1" Margin="24,4,78,10" />
 
                 <Label Foreground="#FF111010" Grid.Row="2" Margin="-1,0,1,0" FontWeight="Bold">Driver's Name :</Label>
-                <TextBox Name="Descriptiontxt" BorderBrush="AliceBlue" BorderThickness="1" Grid.Row="2" Grid.Column="1" AcceptsReturn="True" Margin="24,5,78,10" />
-                <Button Content="Search Parking Space" Name="AddItem" Margin="80,68,125,-70" Grid.Row="2" Grid.ColumnSpan="2"/>
+                <TextBox Name="DriversName" Text="{Binding DriverName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         BorderBrush="AliceBlue" BorderThickness="1" Grid.Row="2" Grid.Column="1" AcceptsReturn="True" Margin="24,5,78,10" />
+                <Button Content="Search Parking Space" Command="{Binding GetParkingSpace}" Name="AddItem" Margin="80,68,125,-70" Grid.Row="2" Grid.ColumnSpan="2"/>
 
-                <Label x:Name="status" Content="{Binding Message,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"  Foreground="Green" Margin="-3,150,-5,-149" Grid.Row="2" HorizontalContentAlignment="Center"
+                <Label x:Name="status" Content="{Binding Message,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"  Foreground="Green" Margin="-9,124,1,-123" Grid.Row="2" HorizontalContentAlignment="Center"
                    FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2"/>
 
             </Grid>

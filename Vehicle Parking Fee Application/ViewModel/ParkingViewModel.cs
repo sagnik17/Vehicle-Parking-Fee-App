@@ -5,14 +5,56 @@ using System.Text;
 using System.Threading.Tasks;
 using Vehicle_Parking_Fee_Application.Model;
 using Vehicle_Parking_Fee_Application.DBLayer;
+using System.Windows.Input;
 
 namespace Vehicle_Parking_Fee_Application.ViewModel
 {
     public class ParkingViewModel : ObservableObject
     {
-        public List<VehicleType> _vtype;
+        private List<VehicleType> _vtype;
+        private string status;
         public VehicleType _svtype;
         private DALayer _dbLayerObj;
+        private string _driverName;
+        private string _vehicleNumber;
+        
+        public string Message
+        {
+            get
+            {
+                return status;
+            }
+            set
+            {
+                status = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public String VehicleNumber
+        {
+            get { return _vehicleNumber; }
+            set
+            {
+                if (_vehicleNumber != value)
+                {
+                    _vehicleNumber = value;
+                    NotifyPropertyChanged("VehicleNumber");
+                }
+            }
+        }
+        public String DriverName
+        {
+            get { return _driverName; }
+            set
+            {
+                if (_driverName != value)
+                {
+                    _driverName = value;
+                    NotifyPropertyChanged("DriverName");
+                }
+            }
+        }
+
 
         public List<VehicleType> VType
         {
@@ -47,6 +89,31 @@ namespace Vehicle_Parking_Fee_Application.ViewModel
             VType = _dbLayerObj.getAllVTypes();
         }
 
+        public ICommand GetParkingSpace
+        {
+            get
+            {
+                return new ActionCommand(p => AssignParkingSpace(SVType));
+            }
+        }
+
+        public void AssignParkingSpace(VehicleType SVType)
+        {
+            if(SVType != null && DriverName != null && VehicleNumber != null)
+            {
+                VehicleDetails vDetailsObj = new VehicleDetails();
+                ParkingBookingHistory pObj = new ParkingBookingHistory();
+                vDetailsObj.DriverName = DriverName;
+                vDetailsObj.VehicleNumber = VehicleNumber;
+                vDetailsObj.VehicleTypeID = SVType.VehicleTypeID;
+                pObj =  _dbLayerObj.CreateParkingHistory(vDetailsObj);
+                Message = "Parking Space Assigned is : " + pObj.SlotName;
+            }
+            else
+            {
+                Message = "All Fields are compulsory";
+            }
+        }
 
     }
 }

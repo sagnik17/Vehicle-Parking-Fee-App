@@ -24,5 +24,6 @@ namespace Vehicle_Parking_Fee_Application.Model
         public DateTime TimeOut { get; set; }
         public int OccupancyTime { get; set; }
         public int TotalParkingFee { get; set; }
+        public string SlotName { get; set; }
     }
 }
