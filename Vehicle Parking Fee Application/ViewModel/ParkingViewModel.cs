@@ -21,6 +21,7 @@ namespace Vehicle_Parking_Fee_Application.ViewModel
         private VehicleDetails _svDetails;
 
 
+
         public string Message
         {
             get
@@ -53,12 +54,13 @@ namespace Vehicle_Parking_Fee_Application.ViewModel
                 if (_driverName != value)
                 {
                     _driverName = value;
+                    
                     NotifyPropertyChanged("DriverName");
                 }
             }
         }
 
-        
+
         public List<VehicleDetails> VDetails
         {
             get { return _vDetails; }
@@ -68,7 +70,12 @@ namespace Vehicle_Parking_Fee_Application.ViewModel
         public VehicleDetails svDetails
         {
             get { return _svDetails; }
-            set { _svDetails = value; NotifyPropertyChanged(); }
+            set
+            {
+                _svDetails = value;
+                DropDownChange(svDetails);
+                NotifyPropertyChanged();
+            }
         }
 
 
@@ -86,7 +93,7 @@ namespace Vehicle_Parking_Fee_Application.ViewModel
 
         public ParkingViewModel() : this(new DALayer())
         {
-            
+
         }
 
 
@@ -121,20 +128,26 @@ namespace Vehicle_Parking_Fee_Application.ViewModel
 
         public void AssignParkingSpace(VehicleType SVType)
         {
-            if(SVType != null && DriverName != null && VehicleNumber != null)
+            if (SVType != null && DriverName != null && VehicleNumber != null)
             {
                 VehicleDetails vDetailsObj = new VehicleDetails();
                 ParkingBookingHistory pObj = new ParkingBookingHistory();
                 vDetailsObj.DriverName = DriverName;
                 vDetailsObj.VehicleNumber = VehicleNumber;
                 vDetailsObj.VehicleTypeID = SVType.VehicleTypeID;
-                pObj =  _dbLayerObj.CreateParkingHistory(vDetailsObj);
+                pObj = _dbLayerObj.CreateParkingHistory(vDetailsObj);
                 Message = "Parking Space Assigned is : " + pObj.SlotName;
             }
             else
             {
                 Message = "All Fields are compulsory";
             }
+        }
+
+        public void DropDownChange(VehicleDetails svDetails)
+        {
+            _dbLayerObj = new DALayer();
+            _dbLayerObj.VehicleCheckOut(svDetails);
         }
 
     }

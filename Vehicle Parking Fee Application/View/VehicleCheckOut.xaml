@@ -27,15 +27,24 @@
                 <Label Foreground="#FF111010" Margin="-1,0,260,0" Grid.ColumnSpan="2" FontWeight="Bold">Vehicle Number :</Label>
                 <ComboBox x:Name="vehicletype" ItemsSource="{Binding VDetails}" SelectedValuePath="VehicleDetailsID" SelectedItem="{Binding svDetails}" DisplayMemberPath="VehicleNumber"
                           HorizontalAlignment="Left" VerticalAlignment="Top" Width="185" Grid.Column="1" Margin="24,-1,0,0"/>
-                <Label Foreground="#FF111010" Grid.Row="1" Grid.ColumnSpan="2" Margin="1,0,260,0" FontWeight="Bold" Height="32" VerticalAlignment="Bottom">Parking Slot :</Label>
+                <Label Foreground="#FF111010" Grid.Row="1" Grid.ColumnSpan="2" Margin="1,0,316,0" FontWeight="Bold" Height="32" VerticalAlignment="Bottom">Parking Slot :</Label>
 
                 <Label Foreground="#FF111010" Grid.Row="2" Margin="-1,0,1,0" FontWeight="Bold">Driver's Name :</Label>
-                <Button Content="Check Out Vehicle" Command="{Binding GetParkingSpace}" Name="AddItem" Margin="79,107,126,-109" Grid.Row="2" Grid.ColumnSpan="2"/>
+                <Button Content="Check Out Vehicle" Command="{Binding GetParkingSpace}" Name="AddItem" Margin="87,135,118,-137" Grid.Row="2" Grid.ColumnSpan="2"/>
 
-                <Label x:Name="status" Content="{Binding Message,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"  Foreground="Green" Margin="-18,142,10,-141" Grid.Row="2" HorizontalContentAlignment="Center"
+                <Label x:Name="status" Content="{Binding Message,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"  Foreground="Green" Margin="-18,176,10,-175" Grid.Row="2" HorizontalContentAlignment="Center"
                    FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2"/>
+                <Label x:Name="label" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Margin="28,0,0,2" Grid.Row="1" Width="248"/>
+                <Label x:Name="DriverName" Content="{Binding DriverName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="28,2,0,0" Grid.Row="2" Width="177"/>
+                <Label x:Name="timeIn" Grid.Row="2" Content="Time In : " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,-24" Width="86" FontWeight="Bold"/>
+                <Label x:Name="timeInMessage" Grid.Row="2" Content="Label" HorizontalAlignment="Left" Margin="27,31,0,-28" Grid.Column="1" Width="175"/>
+                <Label x:Name="timeOut" Content="Time Out : " HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Margin="0,55,0,-49" Width="86" FontWeight="Bold"/>
+                <Label x:Name="timeOutMessage" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Margin="28,56,0,-50" Grid.Column="1" Width="185"/>
+                <Label x:Name="ParkingTime" Content="Parking Time" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Margin="0,85,0,-79" Width="86" FontWeight="Bold"/>
+                <Label x:Name="ParkingTimeMessage" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Margin="28,87,0,-81" Grid.Column="1" Width="181"/>
 
             </Grid>
+
 
         </StackPanel>
 

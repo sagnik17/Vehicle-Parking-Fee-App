@@ -62,7 +62,7 @@ namespace Vehicle_Parking_Fee_Application.DBLayer
             conn.Open();
             string query = "Insert into VehicleDetails (VehicleNumber,VehicleTypeID,DriverName) values (@VehicleNumber,@VehicleTypeID,@DriverName) select SCOPE_IDENTITY()";
             SqlCommand cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@VehicleNumber", vDetailsObj.VehicleNumber);
+            cmd.Parameters.AddWithValue("@VehicleNumber", vDetailsObj.VehicleNumber.ToUpper());
             cmd.Parameters.AddWithValue("@VehicleTypeID", vDetailsObj.VehicleTypeID);
             cmd.Parameters.AddWithValue("@DriverName", vDetailsObj.DriverName);
 
@@ -130,9 +130,14 @@ namespace Vehicle_Parking_Fee_Application.DBLayer
             }
         }
 
-        public ParkingBookingHistory VehicleCheckOut()
+        public ParkingBookingHistory VehicleCheckOut(VehicleDetails Obj)
         {
-            return null;
+            var data = from post in _pDBContext.ParkingBookingHistory
+                       join meta in _pDBContext.VehicleDetails
+                       on post.VehicleDetailsID equals meta.VehicleDetailsID
+                       where meta.VehicleNumber == Obj.VehicleNumber
+                       select new { post };
+            return _pDBContext.ParkingBookingHistory.Where(p => p.SlotName == Obj.VehicleNumber).FirstOrDefault();
         }
     }
 
