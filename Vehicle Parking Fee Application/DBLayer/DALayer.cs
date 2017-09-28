@@ -29,7 +29,22 @@ namespace Vehicle_Parking_Fee_Application.DBLayer
 
         public List<VehicleDetails> getAllVDetails()
         {
-            return _pDBContext.VehicleDetails.ToList();
+            //return _pDBContext.VehicleDetails.ToList();
+
+            var data = (from p in _pDBContext.ParkingBookingHistory
+                       join v in _pDBContext.VehicleDetails on p.VehicleDetailsID equals v.VehicleDetailsID
+                       where p.Status == Status.Open.ToString()
+                       select new VehicleDetails { }).ToList();
+                        //select new VehicleDetails
+                        //{
+                        //    VehicleDetailsID = v.VehicleDetailsID,
+                        //    DriverName = v.DriverName,
+                        //    VehicleNumber = v.VehicleNumber,
+                        //    VehicleType = v.VehicleType,
+                        //    VehicleTypeID = v.VehicleTypeID
+                        //};
+
+            return data.ToList();
         }
 
         public ParkingSpace FindNewParkingSpace(int floorNumber1, int floorNumber2)
@@ -90,7 +105,6 @@ namespace Vehicle_Parking_Fee_Application.DBLayer
                 pobj.VehicleDetailsID = vDetails.VehicleDetailsID;
                 pobj.TimeIn = DateTime.Now;
                 pobj.TimeOut = DateTime.Now;
-                pobj.OccupancyTime = 0;
                 pobj.TotalParkingFee = 0;
                 pobj.SlotName = pSpace.SlotName;
                 ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
@@ -132,12 +146,32 @@ namespace Vehicle_Parking_Fee_Application.DBLayer
 
         public ParkingBookingHistory VehicleCheckOut(VehicleDetails Obj)
         {
-            var data = from post in _pDBContext.ParkingBookingHistory
-                       join meta in _pDBContext.VehicleDetails
-                       on post.VehicleDetailsID equals meta.VehicleDetailsID
-                       where meta.VehicleNumber == Obj.VehicleNumber
-                       select new { post };
-            return _pDBContext.ParkingBookingHistory.Where(p => p.SlotName == Obj.VehicleNumber).FirstOrDefault();
+            return _pDBContext.ParkingBookingHistory.Join(_pDBContext.VehicleDetails, p => p.VehicleDetailsID,m => m.VehicleDetailsID,
+                (p,m) => new { p }).Where(l => l.p.VehicleDetailsID == Obj.VehicleDetailsID && l.p.Status == "Open").First().p;
+        }
+
+        public void CheckOutVehicle(ParkingBookingHistory Obj)
+        {
+            ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
+            conn = new SqlConnection(ConnectionString);
+            conn.Open();
+            string Updatequery = "Update ParkingSpaces set AvailabilityStatus = @AvailabilityStatus where ParkingSpaceID = @ParkingSpaceID";
+            SqlCommand Updatecmd = new SqlCommand(Updatequery, conn);
+            Updatecmd.Parameters.AddWithValue("@AvailabilityStatus", AvailabilityStatus.Available.ToString());
+            Updatecmd.Parameters.AddWithValue("@ParkingSpaceID", Obj.ParkingSpaceID);
+            Updatecmd.ExecuteNonQuery();
+
+            string Updatequery1 = "Update ParkingBookingHistories set Status = @Status, TimeOut = @TimeOut,OccupancyTime = @OccupancyTime, TotalParkingFee = @TotalParkingFee where BookingID = @BookingID";
+            SqlCommand Updatecmd1 = new SqlCommand(Updatequery1, conn);
+            Updatecmd1.Parameters.AddWithValue("@Status", Status.Closed.ToString());
+            Updatecmd1.Parameters.AddWithValue("@TimeOut", Obj.TimeOut);
+            Updatecmd1.Parameters.AddWithValue("@OccupancyTime", Obj.OccupancyTime);
+            Updatecmd1.Parameters.AddWithValue("@TotalParkingFee", Obj.TotalParkingFee);
+            Updatecmd1.Parameters.AddWithValue("@BookingID", Obj.BookingID);
+            Updatecmd1.ExecuteNonQuery();
+
+            conn.Close();
+
         }
     }
 

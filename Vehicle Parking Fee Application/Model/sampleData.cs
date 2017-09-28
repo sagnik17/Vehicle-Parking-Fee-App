@@ -17,10 +17,6 @@ namespace Vehicle_Parking_Fee_Application.Model
             try
             {
 
-                //List<ParkingSpace> ParkingSpacesF1 = new List<ParkingSpace>();
-                ////List<ParkingSpace> ParkingSpacesF2 = new List<ParkingSpace>();
-                ////List<ParkingSpace> ParkingSpacesF3 = new List<ParkingSpace>();
-
                 for (int i = 1; i <= 205; i++)
                 {
                     if (i < 10)

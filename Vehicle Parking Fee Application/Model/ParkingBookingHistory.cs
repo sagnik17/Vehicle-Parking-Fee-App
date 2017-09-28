@@ -22,7 +22,7 @@ namespace Vehicle_Parking_Fee_Application.Model
         public virtual VehicleDetails VehicleDetails { get; set; }
         public DateTime TimeIn { get; set; }
         public DateTime TimeOut { get; set; }
-        public int OccupancyTime { get; set; }
+        public TimeSpan OccupancyTime { get; set; }
         public int TotalParkingFee { get; set; }
         public string SlotName { get; set; }
     }

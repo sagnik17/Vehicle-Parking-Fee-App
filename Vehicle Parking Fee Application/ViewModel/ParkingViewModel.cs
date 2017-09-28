@@ -17,10 +17,77 @@ namespace Vehicle_Parking_Fee_Application.ViewModel
         private DALayer _dbLayerObj;
         private string _driverName;
         private string _vehicleNumber;
+        private string _vehicleType;
+        private DateTime _timein;
+        private DateTime _timeout;
+        private TimeSpan _parkingTime;
+        public string _parkingSlot;
         private List<VehicleDetails> _vDetails;
         private VehicleDetails _svDetails;
 
+        public string VehicleType
+        {
+            get
+            {
+                return _vehicleType;
+            }
+            set
+            {
+                _vehicleType = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public TimeSpan ParkingTime
+        {
+            get
+            {
+                return _parkingTime;
+            }
+            set
+            {
+                _parkingTime = value;
+                NotifyPropertyChanged();
+            }
+        }
 
+        public DateTime TimeOut
+        {
+            get
+            {
+                return _timeout;
+            }
+            set
+            {
+                _timeout = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public DateTime Timein
+        {
+            get
+            {
+                return _timein;
+            }
+            set
+            {
+                _timein = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string ParkingSlot
+        {
+            get
+            {
+                return _parkingSlot;
+            }
+            set
+            {
+                _parkingSlot = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         public string Message
         {
@@ -147,7 +214,66 @@ namespace Vehicle_Parking_Fee_Application.ViewModel
         public void DropDownChange(VehicleDetails svDetails)
         {
             _dbLayerObj = new DALayer();
-            _dbLayerObj.VehicleCheckOut(svDetails);
+            ParkingBookingHistory pbhObj = new ParkingBookingHistory();
+            pbhObj = _dbLayerObj.VehicleCheckOut(svDetails);
+            DriverName = pbhObj.VehicleDetails.DriverName;
+            ParkingTime = (DateTime.Now - pbhObj.TimeIn).Duration();
+            TimeOut = DateTime.Now;
+            Timein = pbhObj.TimeIn;
+            ParkingSlot = pbhObj.ParkingSpace.SlotName;
+            VehicleType = pbhObj.VehicleDetails.VehicleType.VehicleTypeName;
+        }
+
+        public ICommand CheckOutVehicleCmd
+        {
+            get
+            {
+                return new ActionCommand(p => CheckOutVehicle());
+            }
+        }
+
+        public void CheckOutVehicle()
+        {
+            _dbLayerObj = new DALayer();
+            ParkingBookingHistory pbhObj = new ParkingBookingHistory();
+            pbhObj = _dbLayerObj.VehicleCheckOut(svDetails);
+
+            if (ParkingTime.Hours == 0 && svDetails.VehicleTypeID == 1)
+            {
+                Message = "Total Parking Fee is 20 \n" + "Parking Slot : " + ParkingSlot + " is Available";
+                pbhObj.TotalParkingFee = 20;
+            }
+            else if (ParkingTime.Hours == 0 && svDetails.VehicleTypeID == 2)
+            {
+                Message = "Total Parking Fee is 40 \n" + "Parking Slot : " + ParkingSlot + " is Available";
+                pbhObj.TotalParkingFee = 40;
+            }
+            else if (ParkingTime.Hours == 1 && svDetails.VehicleTypeID == 1)
+            {
+                Message = "Total Parking Fee is 40 \n" + "Parking Slot : " + ParkingSlot + " is Available";
+                pbhObj.TotalParkingFee = 40;
+            }
+            else if (ParkingTime.Hours == 1 && svDetails.VehicleTypeID == 2)
+            {
+                Message = "Total Parking Fee is 50 \n" + "Parking Slot : " + ParkingSlot + " is Available";
+                pbhObj.TotalParkingFee = 50;
+            }
+            else if (ParkingTime.Hours > 1 && svDetails.VehicleTypeID == 1)
+            {
+                Message = "Total Parking Fee is 60 \n" + "Parking Slot : " + ParkingSlot + " is Available";
+                pbhObj.TotalParkingFee = 60;
+            }
+            else if (ParkingTime.Hours > 1 && svDetails.VehicleTypeID == 2)
+            {
+                Message = "Total Parking Fee is 70 \n" + "Parking Slot : " + ParkingSlot + " is Available";
+                pbhObj.TotalParkingFee = 70;
+            }
+
+           
+            pbhObj.TimeOut = TimeOut;
+            pbhObj.OccupancyTime = ParkingTime;
+            _dbLayerObj.CheckOutVehicle(pbhObj);
+
         }
 
     }
