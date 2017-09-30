@@ -32,17 +32,24 @@ namespace Vehicle_Parking_Fee_Application.DBLayer
             //return _pDBContext.VehicleDetails.ToList();
 
             var data = (from p in _pDBContext.ParkingBookingHistory
-                       join v in _pDBContext.VehicleDetails on p.VehicleDetailsID equals v.VehicleDetailsID
-                       where p.Status == Status.Open.ToString()
-                       select new VehicleDetails { }).ToList();
-                        //select new VehicleDetails
-                        //{
-                        //    VehicleDetailsID = v.VehicleDetailsID,
-                        //    DriverName = v.DriverName,
-                        //    VehicleNumber = v.VehicleNumber,
-                        //    VehicleType = v.VehicleType,
-                        //    VehicleTypeID = v.VehicleTypeID
-                        //};
+                        join v in _pDBContext.VehicleDetails on p.VehicleDetailsID equals v.VehicleDetailsID
+                        where p.Status == Status.Open.ToString()
+
+                        select new
+                        {
+                            VehicleDetailsID = v.VehicleDetailsID,
+                            DriverName = v.DriverName,
+                            VehicleNumber = v.VehicleNumber,
+                            VehicleType = v.VehicleType,
+                            VehicleTypeID = v.VehicleTypeID
+                        }).AsEnumerable().Select(x => new VehicleDetails
+                        {
+                            VehicleDetailsID = x.VehicleDetailsID,
+                            DriverName = x.DriverName,
+                            VehicleNumber = x.VehicleNumber,
+                            VehicleType = x.VehicleType,
+                            VehicleTypeID = x.VehicleTypeID
+                        }).ToList();
 
             return data.ToList();
         }
@@ -110,14 +117,15 @@ namespace Vehicle_Parking_Fee_Application.DBLayer
                 ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
                 conn = new SqlConnection(ConnectionString);
                 conn.Open();
-                string query = "Insert into ParkingBookingHistories (Status,ParkingSpaceID,VehicleDetailsID,TimeIn,TimeOut,OccupancyTime,TotalParkingFee,SlotName) values (@Status,@ParkingSpaceID,@VehicleDetailsID,@TimeIn,@TimeOut,@OccupancyTime,@TotalParkingFee,@SlotName) select SCOPE_IDENTITY()";
+                string query = @"Insert into ParkingBookingHistories (Status,ParkingSpaceID,VehicleDetailsID,TimeIn,TimeOut,OccupancyTime,TotalParkingFee,SlotName) values 
+                                (@Status,@ParkingSpaceID,@VehicleDetailsID,@TimeIn,@TimeOut,@OccupancyTime,@TotalParkingFee,@SlotName) select SCOPE_IDENTITY()";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Status", pobj.Status);
                 cmd.Parameters.AddWithValue("@ParkingSpaceID", pobj.ParkingSpaceID);
                 cmd.Parameters.AddWithValue("@VehicleDetailsID", pobj.VehicleDetailsID);
                 cmd.Parameters.AddWithValue("@TimeIn", pobj.TimeIn);
                 cmd.Parameters.AddWithValue("@TimeOut", pobj.TimeOut);
-                cmd.Parameters.AddWithValue("@OccupancyTime", pobj.OccupancyTime);
+                cmd.Parameters.AddWithValue("@OccupancyTime", "");
                 cmd.Parameters.AddWithValue("@TotalParkingFee", pobj.TotalParkingFee);
                 cmd.Parameters.AddWithValue("@SlotName", pSpace.SlotName);
 

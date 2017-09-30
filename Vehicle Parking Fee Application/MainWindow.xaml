@@ -9,20 +9,20 @@
     <DockPanel LastChildFill="True">
         <Border BorderBrush="DarkBlue" DockPanel.Dock="Bottom" BorderThickness="1">
             <StackPanel Background="AliceBlue" Orientation="Vertical">
-                <Label BorderBrush="AliceBlue">Status : Connected</Label>
+                <Label BorderBrush="AliceBlue" Background="#FFDAC9E4" Foreground="#FF10930A">Status : Connected</Label>
             </StackPanel>
         </Border>
         <Border BorderBrush="DarkBlue" DockPanel.Dock="Left" BorderThickness="1">
-            <StackPanel Background="AliceBlue" MinWidth="160">
-                <Label FontSize="24" Height="50" HorizontalContentAlignment="Center" Foreground="#FF14B0BF" FontWeight="Bold">Options</Label>
-                <Button Name="VehicleCheckIn" Content="Vehicle Check In" Height="50" FontWeight="Bold" Foreground="#FF2D9E9E" Background="#FFF5D9C1" Click="VehicleCheckIn_Click"></Button>
-                <Button Name="VehicleCheckOut" Content="Vehicle Check Out" Height="50" FontWeight="Bold" Foreground="#FF29A2A2" Background="#FFF5D9C1" Click="VehicleCheckOut_Click"></Button>
-                <Button Name="GetParkingHistory" Content="View Parking History" Height="50" FontWeight="Bold" Foreground="#FF239393" Background="#FFF5D9C1"></Button>
+            <StackPanel Background="#FFDAC9E4" MinWidth="160">
+                <Label FontSize="24" Height="50" HorizontalContentAlignment="Center" Foreground="#FFDA1A1A" FontWeight="Bold">Options</Label>
+                <Button Name="VehicleCheckIn" Content="Vehicle Check In" Height="50" FontWeight="Bold" Foreground="#FF9E512D" Background="#FFC1C1F5" Click="VehicleCheckIn_Click"></Button>
+                <Button Name="VehicleCheckOut" Content="Vehicle Check Out" Height="50" FontWeight="Bold" Foreground="#FF9E512D" Background="#FFC1C1F5" Click="VehicleCheckOut_Click"></Button>
+                <!--<Button Name="GetParkingHistory" Content="View Parking History" Height="50" FontWeight="Bold" Foreground="#FF239393" Background="#FFF5D9C1"></Button>-->
             </StackPanel>
         </Border>
         <Border BorderBrush="DarkBlue" BorderThickness="1" DockPanel.Dock="Top">
-            <StackPanel Background="AliceBlue" >
-                <Label BorderBrush="Black" Margin="5" FontSize="24" Width="429" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="#FF25B1C7">CMR - CENTRAL PARKING APP
+            <StackPanel Background="#FFDAC9E4" >
+                <Label BorderBrush="Black" Margin="5" FontSize="24" Width="429" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="#FFDA1A1A">CMR - CENTRAL PARKING APP
                 </Label>
             </StackPanel>
         </Border>
@@ -31,7 +31,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Frame Background="AliceBlue" Grid.Row="0" Name="MainFrame" NavigationUIVisibility="Hidden" Grid.RowSpan="2">
+            <Frame Background="#FFDAC9E4" Grid.Row="0" Name="MainFrame" NavigationUIVisibility="Hidden" Grid.RowSpan="2">
                 
             </Frame>
 
