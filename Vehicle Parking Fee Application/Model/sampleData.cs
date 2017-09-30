@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Vehicle_Parking_Fee_Application.Model
 {
-    public class sampleData : DropCreateDatabaseAlways<ParkingFeeDB>
+    public class sampleData : CreateDatabaseIfNotExists<ParkingFeeDB>
     {
         enum AvailabilityStatus { Available, Occupied };
         enum Status { Open, Closed };
